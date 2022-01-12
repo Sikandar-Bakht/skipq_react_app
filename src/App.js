@@ -3,6 +3,8 @@ import Header from './Header'
 import URL from './URL'
 import { TablePagination } from 'react-pagination-table';
 import './App.css';
+import Amplify from "aws-amplify";
+import { withAuthenticator } from '@aws-amplify/ui-react'
 
 const App = () => {
   
@@ -62,4 +64,4 @@ const App = () => {
   );
 }
 
-export default App;
+export default withAuthenticator(App);
