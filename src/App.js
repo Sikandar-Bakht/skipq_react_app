@@ -3,8 +3,6 @@ import Header from './Header'
 import URL from './URL'
 import { TablePagination } from 'react-pagination-table';
 import './App.css';
-import Amplify from "aws-amplify";
-import { withAuthenticator } from '@aws-amplify/ui-react'
 
 const App = () => {
   
@@ -12,7 +10,7 @@ const App = () => {
   const [queryres, setQueryres] = useState(false)
   useEffect(()=>{
     const fetchURLs = async () => {
-      const response = await fetch('https://vgqpzpvb6f.execute-api.us-east-2.amazonaws.com/prod/TABLE')
+      const response = await fetch(`${process.env.REACT_APP_ENDPOINT}`+ '/TABLE')
       const data = await response.text()
       setUrls(JSON.parse(data))
     }
@@ -21,7 +19,7 @@ const App = () => {
  
   const queryURL = (URL) =>{
       const fetchURLs = async () => {
-      const response = await fetch('https://vgqpzpvb6f.execute-api.us-east-2.amazonaws.com/prod/TABLE?url='+URL.URL)
+      const response = await fetch(`${process.env.REACT_APP_ENDPOINT}`+ '/TABLE?='+ URL.URL)
       const data = await response.text()
       const req_res = JSON.parse(data)
       if ('Item' in req_res && req_res.Item.URL === URL.URL)
@@ -64,4 +62,4 @@ const App = () => {
   );
 }
 
-export default withAuthenticator(App);
+export default App;
